@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-  before_action :find_task, only:[:show, :edit, :update, :destroy]
+  before_action :find_task, only: %i(show, edit, update, destroy)
+
   def index    
     # 列出所有任務
     @tasks = Task.all
@@ -38,7 +39,6 @@ class TasksController < ApplicationController
   def destroy
      @task.destroy
      redirect_to root_path, notice: "任務刪除成功！"
-    
   end
 
   private
@@ -49,5 +49,4 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :content)
   end
-
 end
