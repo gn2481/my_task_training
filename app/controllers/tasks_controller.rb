@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :find_task, only:[:show, :edit, :update]
+  before_action :find_task, only:[:show, :edit, :update, :destroy]
   def index    
     # 列出所有任務
     @tasks = Task.all
@@ -11,21 +11,34 @@ class TasksController < ApplicationController
 
   def new
     # 新增任務
+    @task = Task.new
   end
 
   def create 
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to @task, notice: "任務新增成功！"
+    else
+      render :new
+    end
   end
 
   def edit
-
   end
 
   def update
-
+    @task = Task.update(task_params)
+    if @task.save
+      redirect_to @task, notice: "任務修改成功！"
+    else
+      render :edit
+    end
   end
 
-  def delete 
-
+  def destroy
+     @task.destroy
+     redirect_to root_path, notice: "任務刪除成功！"
+    
   end
 
   private

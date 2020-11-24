@@ -1,1 +1,9 @@
 <h1>任務列表</h1>
+<% @tasks.each do |task| %>
+  <li>
+  <%= link_to task.title, task_path(task) %>
+  <%= link_to "編輯", edit_task_path(task) %>
+  <%= link_to "刪除", task_path(task.id), method:"delete",data:{confirm:"確認刪除嗎？"}  %>
+  </li>
+<% end %>
+<%= link_to "新增", new_task_path %>
