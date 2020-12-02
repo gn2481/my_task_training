@@ -1,2 +1,2 @@
 ## table schema
-[](docs/ERD.png)
+![](https://i.imgur.com/RKAnu8h.png)
