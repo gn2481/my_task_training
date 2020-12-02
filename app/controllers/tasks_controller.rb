@@ -27,8 +27,7 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
-    @task = Task.update(task_params)
-    if @task.save
+    if @task.update(task_params)
       redirect_to @task, notice: '任務修改成功！'
     else
       render :edit
