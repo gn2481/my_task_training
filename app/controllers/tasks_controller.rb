@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     # 列出所有任務
     @tasks = Task.all
+    # 之後會修改成有分頁的設計
   end
 
   def show
@@ -35,8 +36,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to root_path, notice: '任務刪除成功！'
+    if @task.destroy
+      redirect_to root_path, notice: '任務刪除成功！'
+    else
+      redirect_to root_path, notice: '請再試一次！'
+    end
   end
 
   private
