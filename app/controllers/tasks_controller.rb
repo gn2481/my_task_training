@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
-  before_action :find_task, only: %i(show, edit, update, destroy)
+  before_action :find_task, only: %i[show edit update destroy]
 
-  def index    
+  def index
     # 列出所有任務
     @tasks = Task.all
+    # 之後會修改成有分頁的設計
   end
 
   def show
@@ -15,33 +16,35 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
-  def create 
+  def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to @task, notice: "任務新增成功！"
+      redirect_to @task, notice: '任務新增成功！'
     else
       render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    @task = Task.update(task_params)
-    if @task.save
-      redirect_to @task, notice: "任務修改成功！"
+    if @task.update(task_params)
+      redirect_to @task, notice: '任務修改成功！'
     else
       render :edit
     end
   end
 
   def destroy
-     @task.destroy
-     redirect_to root_path, notice: "任務刪除成功！"
+    if @task.destroy
+      redirect_to root_path, notice: '任務刪除成功！'
+    else
+      redirect_to root_path, notice: '請再試一次！'
+    end
   end
 
   private
+
   def find_task
     @task = Task.find(params[:id])
   end
